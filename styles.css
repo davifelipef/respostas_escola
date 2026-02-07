@@ -1,7 +1,5 @@
 /* ======================================================
-   RESET E BASE GLOBAL
-   Responsabilidade:
-   - Normalizar comportamento entre navegadores
+   RESET E BASE
    ====================================================== */
 
 * {
@@ -20,113 +18,120 @@ body {
 }
 
 /* ======================================================
-   PÁGINA INICIAL (INDEX)
-   Responsabilidade:
-   - Mostrar 4 alternativas
-   - Cada alternativa ocupar grande área tocável
-   - Letras MUITO visíveis no mobile
+   INDEX — MOBILE FIRST
    ====================================================== */
 
 body.home {
-  min-height: 100svh; /* viewport real em mobile */
+  min-height: 100svh;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 
-/* Blocos clicáveis A / B / C / D */
 .opcao {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  /* Mobile-first: escala com a largura da tela */
-  font-size: clamp(
-    6rem,   /* mínimo absoluto */
-    30vw,   /* principal: domina o quadrante no mobile */
-    14rem   /* limite em desktop */
-  );
-
+  font-size: 40vw;   /* Tamanho das letras na tela inicial */
   font-weight: bold;
+  color: #fff;
   text-decoration: none;
-  color: #ffffff;
 }
 
 .opcao:active {
   opacity: 0.85;
 }
 
-/* Cores fixas */
-.opcao.a { background-color: #e74c3c; } /* A */
-.opcao.b { background-color: #3498db; } /* B */
-.opcao.c { background-color: #2ecc71; } /* C */
-.opcao.d { background-color: #f1c40f; } /* D */
+.opcao.a { background: #e74c3c; }
+.opcao.b { background: #3498db; }
+.opcao.c { background: #2ecc71; }
+.opcao.d { background: #f1c40f; }
 
 /* ======================================================
-   PÁGINA DE RESPOSTA
-   Responsabilidade:
-   - Mostrar UMA letra
-   - Visível de longe
-   - Letra como elemento dominante
+   PÁGINA DE RESPOSTA — MOBILE FIRST
    ====================================================== */
 
 body.resposta {
-  min-height: 100svh; /* evita problema de barras do mobile */
+  min-height: 100svh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-
-  /* Empurra a letra levemente para cima,
-     deixando espaço visual para o botão */
   justify-content: center;
-
-  color: #ffffff;
+  color: #fff;
 }
 
-/* Cores de fundo */
-body.resposta.a { background-color: #e74c3c; }
-body.resposta.b { background-color: #3498db; }
-body.resposta.c { background-color: #2ecc71; }
-body.resposta.d { background-color: #f1c40f; }
+body.resposta.a { background: #e74c3c; }
+body.resposta.b { background: #3498db; }
+body.resposta.c { background: #2ecc71; }
+body.resposta.d { background: #f1c40f; }
 
-/* Letra principal — MOBILE FIRST REAL */
 .letra {
+  font-size: 100vw;   /* Tamanho das letras na tela inicial */
   font-weight: bold;
   line-height: 1;
-
-  font-size: clamp(
-    10rem,  /* ainda grande em celulares pequenos */
-    60vw,   /* ocupa quase a tela toda no mobile */
-    24rem   /* limite máximo em telas grandes */
-  );
 }
 
 /* ======================================================
-   BOTÃO VOLTAR
-   Responsabilidade:
-   - Navegação
-   - Não competir visualmente com a letra
+   BOTÃO VOLTAR — MINIMALISTA
    ====================================================== */
 
 .voltar {
   position: absolute;
-  bottom: 1.8rem;   /* bem abaixo da letra */
+  bottom: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
 
-  padding: 0.4rem 1.2rem;
-  font-size: 0.9rem;
+  width: 3.2rem;
+  height: 3.2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 2rem;
   font-weight: bold;
 
-  background-color: #ffffff;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
   text-decoration: none;
-  border-radius: 6px;
+
+  transition: transform 0.1s ease, opacity 0.1s ease;
 }
 
 .voltar:active {
-  opacity: 0.8;
+  transform: translateX(-50%) scale(0.92);
+  opacity: 0.7;
 }
 
-/* Cor do texto do botão conforme alternativa */
 body.resposta.a .voltar { color: #e74c3c; }
 body.resposta.b .voltar { color: #3498db; }
 body.resposta.c .voltar { color: #2ecc71; }
 body.resposta.d .voltar { color: #f1c40f; }
+
+/* ======================================================
+   TABLETS / PAISAGEM
+   ====================================================== */
+
+@media (min-width: 600px) {
+  .opcao {
+    font-size: 18vw;
+  }
+
+  .letra {
+    font-size: 40vw;
+  }
+}
+
+/* ======================================================
+   DESKTOP
+   ====================================================== */
+
+@media (min-width: 1024px) {
+  .opcao {
+    font-size: 10rem;
+  }
+
+  .letra {
+    font-size: 18rem;
+  }
+}
