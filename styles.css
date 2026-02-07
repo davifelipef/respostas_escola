@@ -1,5 +1,7 @@
 /* ======================================================
-   RESET E CONFIGURAÇÕES GERAIS
+   RESET E BASE GLOBAL
+   Responsabilidade:
+   - Normalizar comportamento entre navegadores
    ====================================================== */
 
 * {
@@ -18,99 +20,112 @@ body {
 }
 
 /* ======================================================
-   PÁGINA INICIAL — SELEÇÃO DE RESPOSTAS
+   PÁGINA INICIAL (INDEX)
    Responsabilidade:
-   - Mostrar 4 opções grandes
-   - Ocupação total da tela
+   - Mostrar 4 alternativas
+   - Cada alternativa ocupar grande área tocável
+   - Letras MUITO visíveis no mobile
    ====================================================== */
 
 body.home {
-  height: 100vh;
+  min-height: 100svh; /* viewport real em mobile */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
 }
 
-/* Botões de opção (A, B, C, D) */
+/* Blocos clicáveis A / B / C / D */
 .opcao {
   display: flex;
   align-items: center;
   justify-content: center;
 
-  font-size: clamp(6rem, 15vw, 10rem);
+  /* Mobile-first: escala com a largura da tela */
+  font-size: clamp(
+    6rem,   /* mínimo absoluto */
+    30vw,   /* principal: domina o quadrante no mobile */
+    14rem   /* limite em desktop */
+  );
+
   font-weight: bold;
   text-decoration: none;
   color: #ffffff;
 }
 
-/* Feedback tátil simples */
 .opcao:active {
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-/* Cores fixas das alternativas */
-.opcao.a { background-color: #e74c3c; } /* A — vermelho */
-.opcao.b { background-color: #3498db; } /* B — azul */
-.opcao.c { background-color: #2ecc71; } /* C — verde */
-.opcao.d { background-color: #f1c40f; } /* D — amarelo */
+/* Cores fixas */
+.opcao.a { background-color: #e74c3c; } /* A */
+.opcao.b { background-color: #3498db; } /* B */
+.opcao.c { background-color: #2ecc71; } /* C */
+.opcao.d { background-color: #f1c40f; } /* D */
 
 /* ======================================================
-   PÁGINA DE RESPOSTA — LETRA SELECIONADA
+   PÁGINA DE RESPOSTA
    Responsabilidade:
-   - Mostrar a letra em destaque
-   - Manter leitura à distância
+   - Mostrar UMA letra
+   - Visível de longe
+   - Letra como elemento dominante
    ====================================================== */
 
 body.resposta {
-  height: 90vh;
+  min-height: 100svh; /* evita problema de barras do mobile */
   display: flex;
   flex-direction: column;
-
   align-items: center;
+
+  /* Empurra a letra levemente para cima,
+     deixando espaço visual para o botão */
   justify-content: center;
 
   color: #ffffff;
 }
 
-/* Cor de fundo conforme alternativa */
+/* Cores de fundo */
 body.resposta.a { background-color: #e74c3c; }
 body.resposta.b { background-color: #3498db; }
 body.resposta.c { background-color: #2ecc71; }
 body.resposta.d { background-color: #f1c40f; }
 
-/* Letra principal */
+/* Letra principal — MOBILE FIRST REAL */
 .letra {
-  font-size: clamp(20rem, 40vw, 20rem);
   font-weight: bold;
   line-height: 1;
+
+  font-size: clamp(
+    10rem,  /* ainda grande em celulares pequenos */
+    60vw,   /* ocupa quase a tela toda no mobile */
+    24rem   /* limite máximo em telas grandes */
+  );
 }
 
 /* ======================================================
    BOTÃO VOLTAR
    Responsabilidade:
-   - Navegação simples
-   - Não competir com a letra
+   - Navegação
+   - Não competir visualmente com a letra
    ====================================================== */
 
 .voltar {
   position: absolute;
-  bottom: 2rem;          /* Mantém o botão bem abaixo da letra */
-  
-  padding: 0.6rem 1.5rem;
-  font-size: 1rem;
+  bottom: 1.8rem;   /* bem abaixo da letra */
+
+  padding: 0.4rem 1.2rem;
+  font-size: 0.9rem;
   font-weight: bold;
 
   background-color: #ffffff;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
-/* Feedback ao toque */
 .voltar:active {
   opacity: 0.8;
 }
 
-/* Cor do texto conforme alternativa */
+/* Cor do texto do botão conforme alternativa */
 body.resposta.a .voltar { color: #e74c3c; }
 body.resposta.b .voltar { color: #3498db; }
 body.resposta.c .voltar { color: #2ecc71; }
